@@ -73,10 +73,26 @@ function addShipPiece(ship){
         }
     }
 
-    shipBlocks.forEach(shipBlock => {
-        shipBlock.classList.add(ship.name)
-        shipBlock.classList.add('taekn')
-    })
+    let valid 
+
+    if(isHorizontal){
+        shipBlocks.every((_shipBlock, index) => 
+            valid = shipBlocks[0].id % width !== width -(shipBlocks.length - (index + 1)))
+    } else{
+        shipBlocks.every((_shipBlock, index) => 
+            valid = shipBlocks[0].id < 90 + (width * index +1)
+        )
+    }
+
+    if(valid){
+        shipBlocks.forEach(shipBlock => {
+            shipBlock.classList.add(ship.name)
+            shipBlock.classList.add('taekn')
+        }) 
+
+    }
+
+    
 }
 
 ships.forEach(ship => addShipPiece(ship))
