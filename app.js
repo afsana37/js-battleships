@@ -164,15 +164,22 @@ let playerTurn
 //start game
 
 function startGame(){
-    if(optionContainer.children.length!=0){
-        infoDisplay.textContent = 'Please place all your pieces first!'
+    if(playerTurn === undefined){
+        if(optionContainer.children.length!=0) {
+            infoDisplay.textContent = 'Please place all your pieces first!'
+        } else {
+            const allBoardBlocks = document.querySelectorAll('#computer div')
+            allBoardBlocks.forEach(block => block.addEventListener('click', handleClick))
+            playerTurn = true
+            turnDisplay.textContent = 'Your turn'
+            infoDisplay.textContent = 'the game has started'
+        }
+        
     }
-    else{
-        const allBoardBlocks = document.querySelectorAll('#computer div')
-        allBoardBlocks.forEach(block => block.addEventListener('click', handleClick))
-    }
-
+    
 }
+
+startButton.addEventListener('click', startGame)
 
 let playerHits = []
 let computerHits = []
@@ -277,6 +284,16 @@ function checkScore(user, userHits, userSunkShips){
     console.log('playerHits', playerHits)
     console.log('playerSunkShips', playerSunkShips)
 
+    if(playerSunkShips.length === 5){
+        infoDisplay.textContent = 'you sunk all the enemy ships.you won!'
+        gameOver = true
+    }
+
+    if(computerSunkShips.length ===5){
+        infoDisplay.textContent = 'the enemy sunk all your ships. enemy won'
+        gameOver == true
+        
+    }
+
 
 }
-startButton.addEventListener('click', startGame)
